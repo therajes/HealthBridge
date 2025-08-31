@@ -182,26 +182,6 @@ For academic and research partnerships, please contact our research team to disc
 - Clinical trial and evaluation studies
 - Publication and presentation opportunities
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact Information
-
-- **Project Lead**: [Contact Information]
-- **Technical Support**: [Support Email]
-- **Research Inquiries**: [Research Email]
-- **Partnership Opportunities**: [Partnership Email]
-
-## Acknowledgments
-
-We extend our gratitude to:
-
-- The healthcare professionals and patients in Nabha for their valuable insights
-- The Punjab Health Department for their support and guidance
-- The open-source community for the technologies that make this platform possible
-- Academic institutions and research partners contributing to this initiative
-
 ---
 
 *HealthBridge: Bridging the gap between rural communities and quality healthcare through innovative technology solutions.*
