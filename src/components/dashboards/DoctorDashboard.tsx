@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import { Calendar, Clock, User, FileText, Video, CheckCircle, XCircle, Users } from 'lucide-react';
+import { Calendar, Clock, User, FileText, Video, CheckCircle, XCircle, Users, Activity } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { mockAppointments } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
@@ -13,17 +13,30 @@ import { useToast } from '@/hooks/use-toast';
 const DoctorDashboard = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'prescriptions' | 'consultations'>('overview');
+  const [appointments, setAppointments] = useState(() => {
+    const stored = localStorage.getItem('appointments');
+    return stored ? JSON.parse(stored) : mockAppointments;
+  });
   const [prescriptionForm, setPrescriptionForm] = useState({
     patientId: '',
     medicines: '',
     notes: ''
   });
 
-  const doctorAppointments = mockAppointments.filter(apt => apt.doctorId === user?.id);
+  const doctorAppointments = useMemo(() => appointments.filter((apt: any) => apt.doctorId === user?.id), [appointments, user?.id]);
   const pendingCount = doctorAppointments.filter(apt => apt.status === 'pending').length;
   const approvedCount = doctorAppointments.filter(apt => apt.status === 'approved').length;
+  const doctorMetrics = [
+    { label: 'Today Consults', value: approvedCount, color: 'hsl(var(--primary))' },
+    { label: 'Pending', value: pendingCount, color: 'hsl(var(--warning))' },
+    { label: 'Messages (24h)', value: 32, color: 'hsl(var(--success))' }
+  ];
 
   const handleApproveAppointment = (appointmentId: string) => {
+    const updated = appointments.map((a: any) => a.id === appointmentId ? { ...a, status: 'approved' } : a);
+    setAppointments(updated);
+    localStorage.setItem('appointments', JSON.stringify(updated));
     toast({
       title: "Appointment Approved",
       description: "Patient has been notified about the approved appointment.",
@@ -31,6 +44,9 @@ const DoctorDashboard = () => {
   };
 
   const handleRejectAppointment = (appointmentId: string) => {
+    const updated = appointments.map((a: any) => a.id === appointmentId ? { ...a, status: 'rejected' } : a);
+    setAppointments(updated);
+    localStorage.setItem('appointments', JSON.stringify(updated));
     toast({
       title: "Appointment Rejected",
       description: "Patient has been notified. Please suggest alternative dates if possible.",
@@ -64,7 +80,7 @@ const DoctorDashboard = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">Doctor Dashboard</h1>
         <Badge variant="secondary" className="text-primary">
@@ -72,7 +88,7 @@ const DoctorDashboard = () => {
         </Badge>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-4">
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="appointments">Appointments</TabsTrigger>
@@ -82,7 +98,7 @@ const DoctorDashboard = () => {
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid md:grid-cols-4 gap-4">
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Pending Requests</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
@@ -93,7 +109,7 @@ const DoctorDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Today's Appointments</CardTitle>
                 <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -104,7 +120,7 @@ const DoctorDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
@@ -115,7 +131,7 @@ const DoctorDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Consultations</CardTitle>
                 <Video className="h-4 w-4 text-muted-foreground" />
@@ -127,24 +143,41 @@ const DoctorDashboard = () => {
             </Card>
           </div>
 
-          <Card className="shadow-card">
+          <Card className="shadow-card animate-slide-up">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common tasks for doctors</CardDescription>
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 gap-4">
-              <Button variant="medical" className="h-20 flex-col space-y-2">
+              <Button onClick={() => setActiveTab('appointments')} variant="medical" className="h-20 flex-col space-y-2">
                 <CheckCircle className="h-6 w-6" />
                 <span>Approve Appointments</span>
               </Button>
-              <Button variant="outline" className="h-20 flex-col space-y-2">
+              <Button onClick={() => setActiveTab('prescriptions')} variant="outline" className="h-20 flex-col space-y-2">
                 <FileText className="h-6 w-6" />
                 <span>Write Prescription</span>
               </Button>
-              <Button variant="success" className="h-20 flex-col space-y-2">
+              <Button onClick={() => setActiveTab('consultations')} variant="success" className="h-20 flex-col space-y-2">
                 <Video className="h-6 w-6" />
                 <span>Start Consultation</span>
               </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card animate-slide-up">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Your Activity</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-3 gap-4">
+                {doctorMetrics.map((m) => (
+                  <div key={m.label} className="text-center p-3 bg-muted rounded-lg">
+                    <div className="text-2xl font-bold" style={{ color: m.color }}>{m.value}</div>
+                    <div className="text-xs text-muted-foreground">{m.label}</div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

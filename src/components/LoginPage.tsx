@@ -71,7 +71,7 @@ const LoginPage = () => {
               </div>
               <div className="flex items-center space-x-1">
                 <MapPin className="h-4 w-4" />
-                <span>Gujarat, India</span>
+                <span>Greater Noida, India</span>
               </div>
             </div>
           </div>

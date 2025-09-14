@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Package, AlertTriangle, TrendingUp, Plus, Edit, Trash2 } from 'lucide-react';
+import { Package, AlertTriangle, TrendingUp, Plus, Edit, Trash2, Activity } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { mockMedicineStock } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
@@ -25,6 +25,11 @@ const PharmacyDashboard = () => {
   const lowStockCount = pharmacyStock.filter(med => med.stock < 10).length;
   const outOfStockCount = pharmacyStock.filter(med => med.stock === 0).length;
   const totalMedicines = pharmacyStock.length;
+  const pharmacyMetrics = [
+    { label: 'Items in Stock', value: pharmacyStock.reduce((a, m) => a + m.stock, 0), color: 'hsl(var(--primary))' },
+    { label: 'Low Stock Items', value: lowStockCount, color: 'hsl(var(--warning))' },
+    { label: 'Out of Stock', value: outOfStockCount, color: 'hsl(var(--emergency))' }
+  ];
 
   const handleAddMedicine = () => {
     if (!newMedicine.name || !newMedicine.stock || !newMedicine.price) {
@@ -64,7 +69,7 @@ const PharmacyDashboard = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">Pharmacy Dashboard</h1>
         <Badge variant="secondary" className="text-warning">
@@ -82,7 +87,7 @@ const PharmacyDashboard = () => {
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid md:grid-cols-4 gap-4">
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Medicines</CardTitle>
                 <Package className="h-4 w-4 text-muted-foreground" />
@@ -93,7 +98,7 @@ const PharmacyDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
@@ -104,7 +109,7 @@ const PharmacyDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Out of Stock</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
@@ -115,7 +120,7 @@ const PharmacyDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Monthly Sales</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -127,7 +132,7 @@ const PharmacyDashboard = () => {
             </Card>
           </div>
 
-          <Card className="shadow-card">
+          <Card className="shadow-card animate-slide-up">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common pharmacy management tasks</CardDescription>
@@ -145,6 +150,23 @@ const PharmacyDashboard = () => {
                 <AlertTriangle className="h-6 w-6" />
                 <span>Low Stock Alert</span>
               </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card animate-slide-up">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Inventory Activity</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-3 gap-4">
+                {pharmacyMetrics.map((m) => (
+                  <div key={m.label} className="text-center p-3 bg-muted rounded-lg">
+                    <div className="text-2xl font-bold" style={{ color: m.color }}>{m.value}</div>
+                    <div className="text-xs text-muted-foreground">{m.label}</div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
