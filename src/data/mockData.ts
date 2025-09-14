@@ -6,8 +6,8 @@ export const demoUsers: User[] = [
   {
     id: '1',
     email: 'patient@demo.com',
-    password: '12345',
-    name: 'Krishna',
+    password: 'demo123',
+    name: 'Krishna Yadav',
     role: 'patient',
     location: 'Village Rampur, Greater Noida',
     phone: '+91 9876543210'
@@ -15,8 +15,8 @@ export const demoUsers: User[] = [
   {
     id: '2',
     email: 'doctor@demo.com',
-    password: '12345',
-    name: 'Dr. Rachit',
+    password: 'demo123',
+    name: 'Rachit Mishra',
     role: 'doctor',
     specialization: 'General Medicine',
     location: 'Greater Noida Medical Center',
@@ -25,8 +25,8 @@ export const demoUsers: User[] = [
   {
     id: '3',
     email: 'pharmacy@demo.com',
-    password: '12345',
-    name: 'Rural Health Pharmacy',
+    password: 'demo123',
+    name: 'Mohit Pharmaceutics',
     role: 'pharmacy',
     location: 'Surajpur District, Greater Noida',
     phone: '+91 9876543212'
@@ -34,7 +34,7 @@ export const demoUsers: User[] = [
   {
     id: '4',
     email: 'admin@demo.com',
-    password: '12345',
+    password: 'demo123',
     name: 'Rajesh Barik',
     role: 'admin',
     location: 'Telemedicine HQ',
@@ -47,9 +47,9 @@ export const mockAppointments: Appointment[] = [
   {
     id: 'apt1',
     patientId: '1',
-    patientName: 'Krishna',
+    patientName: 'Krishna Yadav',
     doctorId: '2',
-    doctorName: 'Dr. Rachit',
+    doctorName: 'Dr. Rachit Mishra',
     specialty: 'General Medicine',
     date: '2024-01-15',
     time: '10:00 AM',
@@ -75,9 +75,9 @@ export const mockPrescriptions: Prescription[] = [
   {
     id: 'presc1',
     patientId: '1',
-    patientName: 'Krishna',
+    patientName: 'Krishna Yadav',
     doctorId: '2',
-    doctorName: 'Dr. Rachit',
+    doctorName: 'Dr. Rachit Mishra',
     medicines: [
       {
         id: 'med1',

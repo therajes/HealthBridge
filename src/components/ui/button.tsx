@@ -13,15 +13,17 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-white/90 hover:bg-white text-foreground shadow-card",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        medical: "bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-300 font-semibold",
+        medical: "bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-300 font-semibold btn-glow",
         success: "bg-success text-success-foreground hover:bg-success/90 shadow-card",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90",
         emergency: "bg-emergency text-emergency-foreground hover:bg-emergency/90 animate-pulse-glow",
+        premium: "btn-premium",
+        glass: "glass-premium border-premium hover:border-primary/50 hover:bg-primary/10 transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",
