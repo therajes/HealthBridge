@@ -3,9 +3,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity, Heart, Users, Building2, Shield, MapPin, Phone, UserPlus } from 'lucide-react';
+import { Activity, Heart, Users, Building2, Shield, MapPin, Phone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import RegisterPage from '@/components/auth/RegisterPage';
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -13,7 +12,6 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showRegister, setShowRegister] = useState(false);
 
   const demoCredentials = [
     { role: 'Patient', email: 'patient@demo.com', icon: Heart, color: 'text-success' },
@@ -56,10 +54,6 @@ const LoginPage = () => {
     setPassword('12345');
   };
 
-  if (showRegister) {
-    return <RegisterPage />;
-  }
-
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
@@ -70,14 +64,6 @@ const LoginPage = () => {
               <Activity className="h-8 w-8 text-primary" />
               <h1 className="text-xl font-bold text-foreground">TeleMed Rural</h1>
             </div>
-            <Button
-              variant="outline"
-              onClick={() => setShowRegister(true)}
-              className="flex items-center space-x-2"
-            >
-              <UserPlus className="w-4 h-4" />
-              <span>Register</span>
-            </Button>
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
                 <Phone className="h-4 w-4" />
