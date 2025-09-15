@@ -30,15 +30,15 @@ const AdminDashboard = () => {
   }));
 
   return (
-    <div className="space-y-12">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-5xl font-black bg-gradient-to-r from-emergency to-warning bg-clip-text text-transparent">Admin Dashboard</h1>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
         <Badge variant="secondary" className="text-emergency">
           {user?.name}
         </Badge>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-10 mt-12">
+      <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid md:grid-cols-4 gap-4">
-            <Card className="glass-card-premium border-premium">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Active Patients</CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Active Doctors</CardTitle>
                 <UserCheck className="h-4 w-4 text-muted-foreground" />
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Partner Pharmacies</CardTitle>
                 <Building2 className="h-4 w-4 text-muted-foreground" />
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Consultations</CardTitle>
                 <Activity className="h-4 w-4 text-muted-foreground" />
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-<Card className="glass-card border-gradient">
+            <Card className="shadow-card">
               <CardHeader>
                 <CardTitle>Weekly Consultations</CardTitle>
                 <CardDescription>Number of consultations per day this week</CardDescription>
@@ -112,7 +112,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient">
+            <Card className="shadow-card">
               <CardHeader>
                 <CardTitle>Top Requested Medicines</CardTitle>
                 <CardDescription>Most requested medicines this month</CardDescription>
@@ -141,7 +141,7 @@ const AdminDashboard = () => {
             </Card>
           </div>
 
-<Card className="glass-card border-gradient">
+          <Card className="shadow-card">
             <CardHeader>
               <CardTitle>System Health</CardTitle>
               <CardDescription>Overall platform performance metrics</CardDescription>
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
         </TabsContent>
 
         <TabsContent value="users" className="space-y-4">
-          <Card className="glass-card border-gradient">
+          <Card className="shadow-card">
             <CardHeader>
               <CardTitle>User Management</CardTitle>
               <CardDescription>Manage all platform users</CardDescription>

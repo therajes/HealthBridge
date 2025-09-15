@@ -69,15 +69,15 @@ const PharmacyDashboard = () => {
   };
 
   return (
-    <div className="space-y-12 animate-fade-in">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-5xl font-black bg-gradient-to-r from-warning to-success bg-clip-text text-transparent">Pharmacy Dashboard</h1>
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-foreground">Pharmacy Dashboard</h1>
         <Badge variant="secondary" className="text-warning">
           {user?.name}
         </Badge>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-10 mt-12">
+      <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="inventory">Inventory</TabsTrigger>
@@ -87,7 +87,7 @@ const PharmacyDashboard = () => {
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid md:grid-cols-4 gap-4">
-            <Card className="glass-card-premium border-premium card-hover">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Medicines</CardTitle>
                 <Package className="h-4 w-4 text-muted-foreground" />
@@ -98,7 +98,7 @@ const PharmacyDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient card-hover">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
@@ -109,7 +109,7 @@ const PharmacyDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient card-hover">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Out of Stock</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
@@ -120,7 +120,7 @@ const PharmacyDashboard = () => {
               </CardContent>
             </Card>
 
-<Card className="glass-card border-gradient card-hover">
+            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Monthly Sales</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -132,7 +132,7 @@ const PharmacyDashboard = () => {
             </Card>
           </div>
 
-<Card className="glass-card border-gradient animate-slide-up">
+          <Card className="shadow-card animate-slide-up">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common pharmacy management tasks</CardDescription>
@@ -172,7 +172,7 @@ const PharmacyDashboard = () => {
         </TabsContent>
 
         <TabsContent value="inventory" className="space-y-4">
-<Card className="glass-card border-gradient">
+          <Card className="shadow-card">
             <CardHeader>
               <CardTitle>Medicine Inventory</CardTitle>
               <CardDescription>Manage your medicine stock and availability</CardDescription>
