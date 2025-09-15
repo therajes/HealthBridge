@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 import { UserRole } from '@/types/auth';
-import { verificationService } from '@/lib/verificationService';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const RegisterPage = () => {
   const { register } = useAuth();
@@ -49,50 +47,9 @@ const RegisterPage = () => {
     location: ''
   });
 
-  const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: File }>({});
-  const [requiredDocs, setRequiredDocs] = useState<{ type: string; label: string }[]>([]);
-
-  useEffect(() => {
-    const getRequiredDocs = async (role: UserRole) => {
-      const docs = await verificationService.getRequiredDocuments(role);
-      setRequiredDocs(docs);
-    };
-
-    // Clear required docs when tab changes
-    setRequiredDocs([]);
-    
-    const currentTab = document.querySelector('[data-state="active"]')?.getAttribute('value') as UserRole;
-    if (currentTab && currentTab !== 'patient') {
-      getRequiredDocs(currentTab);
-    }
-  }, []);
-
-  const handleFileChange = (type: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFiles(prev => ({
-        ...prev,
-        [type]: e.target.files![0]
-      }));
-    }
-  };
-
   const handleRegister = async (role: UserRole, formData: any) => {
     setLoading(true);
     try {
-      // Validate required documents for non-patient roles
-      if (role !== 'patient') {
-        const missingDocs = requiredDocs.filter(doc => !selectedFiles[doc.type]);
-        if (missingDocs.length > 0) {
-          toast({
-            title: "Missing Documents",
-            description: `Please upload the following documents: ${missingDocs.map(d => d.label).join(', ')}`,
-            variant: "destructive",
-          });
-          setLoading(false);
-          return;
-        }
-      }
-
       const userData = {
         ...formData,
         role,
@@ -100,33 +57,24 @@ const RegisterPage = () => {
         consultation_fee: formData.consultation_fee ? parseFloat(formData.consultation_fee) : undefined
       };
 
-      // Register user with verification service
-      const result = await verificationService.registerUser(formData.email, formData.password, role, userData);
+      const success = await register(formData.email, formData.password, userData);
       
-      if (result.success && role !== 'patient') {
-        // Upload verification documents
-        for (const doc of requiredDocs) {
-          if (selectedFiles[doc.type]) {
-            await verificationService.uploadVerificationDocument(
-              result.userId,
-              selectedFiles[doc.type],
-              doc.type as any
-            );
-          }
-        }
+      if (success) {
+        toast({
+          title: "Registration Successful",
+          description: "Please check your email to verify your account.",
+        });
+      } else {
+        toast({
+          title: "Registration Failed",
+          description: "Please try again with different credentials.",
+          variant: "destructive",
+        });
       }
-
+    } catch (error) {
       toast({
-        title: "Registration Submitted",
-        description: role === 'patient' 
-          ? "Please check your email to verify your account."
-          : "Your registration is pending review. We'll notify you once your account is verified.",
-      });
-
-    } catch (error: any) {
-      toast({
-        title: "Registration Failed",
-        description: error.message || "An unexpected error occurred. Please try again.",
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -363,30 +311,6 @@ const RegisterPage = () => {
                   </div>
                 </div>
 
-                {requiredDocs.length > 0 && (
-                  <div className="space-y-4">
-                    <Alert>
-                      <AlertTitle>Document Verification Required</AlertTitle>
-                      <AlertDescription>
-                        Please upload the following documents. Your registration will be reviewed by our admin team.
-                      </AlertDescription>
-                    </Alert>
-                    
-                    {requiredDocs.map((doc) => (
-                      <div key={doc.type}>
-                        <Label htmlFor={`doctor-${doc.type}`}>{doc.label}</Label>
-                        <Input
-                          id={`doctor-${doc.type}`}
-                          type="file"
-                          accept=".pdf,.jpg,.jpeg,.png"
-                          onChange={handleFileChange(doc.type)}
-                          className="mt-1"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-
                 <Button 
                   onClick={() => handleRegister('doctor', doctorForm)}
                   disabled={loading}
@@ -481,30 +405,6 @@ const RegisterPage = () => {
                     />
                   </div>
                 </div>
-
-                {requiredDocs.length > 0 && (
-                  <div className="space-y-4">
-                    <Alert>
-                      <AlertTitle>Document Verification Required</AlertTitle>
-                      <AlertDescription>
-                        Please upload the following documents. Your registration will be reviewed by our admin team.
-                      </AlertDescription>
-                    </Alert>
-                    
-                    {requiredDocs.map((doc) => (
-                      <div key={doc.type}>
-                        <Label htmlFor={`pharmacy-${doc.type}`}>{doc.label}</Label>
-                        <Input
-                          id={`pharmacy-${doc.type}`}
-                          type="file"
-                          accept=".pdf,.jpg,.jpeg,.png"
-                          onChange={handleFileChange(doc.type)}
-                          className="mt-1"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
 
                 <Button 
                   onClick={() => handleRegister('pharmacy', pharmacyForm)}
