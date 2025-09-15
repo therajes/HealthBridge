@@ -1,26 +1,19 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, Clock, User, Pill, Search, CheckCircle, AlertCircle, FileText, Mic, MessageSquare, Phone, Video, Activity } from 'lucide-react';
+import { Calendar, Clock, User, Pill, Search, CheckCircle, AlertCircle, FileText } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { demoUsers, mockAppointments, mockPrescriptions, mockMedicineStock } from '@/data/mockData';
+import { mockAppointments, mockPrescriptions, mockMedicineStock } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Separator } from '@/components/ui/separator';
-import { Textarea as UITextarea } from '@/components/ui/textarea';
 
 const PatientDashboard = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [medicineSearch, setMedicineSearch] = useState('');
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [selectedDoctorId, setSelectedDoctorId] = useState<string | null>(null);
-  const [consultMessage, setConsultMessage] = useState('');
-  const [voiceNoteSupported] = useState<boolean>(true);
   const [symptoms, setSymptoms] = useState({
     fever: false,
     cough: false,
@@ -31,17 +24,7 @@ const PatientDashboard = () => {
     other: ''
   });
 
-  const [appointments, setAppointments] = useState(() => {
-    const stored = localStorage.getItem('appointments');
-    return stored ? JSON.parse(stored) : mockAppointments;
-  });
-  const patientAppointments = appointments.filter((apt: any) => apt.patientId === user?.id);
-  const availableDoctors = useMemo(() => demoUsers.filter(u => u.role === 'doctor'), []);
-  const patientMetrics = useMemo(() => ([
-    { label: 'Consults (30d)', value: 6, color: 'hsl(var(--primary))' },
-    { label: 'Messages', value: 24, color: 'hsl(var(--success))' },
-    { label: 'Avg. Wait (min)', value: 12, color: 'hsl(var(--warning))' }
-  ]), []);
+  const patientAppointments = mockAppointments.filter(apt => apt.patientId === user?.id);
   const patientPrescriptions = mockPrescriptions.filter(presc => presc.patientId === user?.id);
 
   const handleSymptomCheck = () => {
@@ -81,44 +64,8 @@ const PatientDashboard = () => {
     }
   };
 
-  const openBooking = () => {
-    setIsBookingOpen(true);
-  };
-
-  const bookWithDoctor = (doctorId: string) => {
-    setSelectedDoctorId(doctorId);
-  };
-
-  const createAppointment = (mode: 'message' | 'voice' | 'audio' | 'video') => {
-    if (!user || !selectedDoctorId) return;
-    const doctor = availableDoctors.find(d => d.id === selectedDoctorId);
-    const newAppointment = {
-      id: `apt_${Date.now()}`,
-      patientId: user.id,
-      patientName: user.name,
-      doctorId: doctor?.id,
-      doctorName: doctor?.name,
-      specialty: doctor?.specialization || 'General Medicine',
-      date: new Date().toISOString().slice(0, 10),
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      status: mode === 'message' || mode === 'voice' ? 'approved' : 'pending',
-      symptoms: consultMessage || '—',
-      mode,
-    } as any;
-    const next = [newAppointment, ...appointments];
-    setAppointments(next);
-    localStorage.setItem('appointments', JSON.stringify(next));
-    setIsBookingOpen(false);
-    setSelectedDoctorId(null);
-    setConsultMessage('');
-    toast({
-      title: 'Appointment Created',
-      description: mode === 'message' || mode === 'voice' ? 'Asynchronous consultation started.' : 'Doctor will confirm your live session shortly.',
-    });
-  };
-
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">Patient Dashboard</h1>
         <Badge variant="secondary" className="text-success">
@@ -136,7 +83,7 @@ const PatientDashboard = () => {
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid md:grid-cols-3 gap-4">
-            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Upcoming Appointments</CardTitle>
                 <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -147,7 +94,7 @@ const PatientDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Active Prescriptions</CardTitle>
                 <FileText className="h-4 w-4 text-muted-foreground" />
@@ -158,7 +105,7 @@ const PatientDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card transition-transform duration-200 hover:scale-[1.01]">
+            <Card className="shadow-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Health Score</CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
@@ -170,13 +117,13 @@ const PatientDashboard = () => {
             </Card>
           </div>
 
-          <Card className="shadow-card animate-slide-up">
+          <Card className="shadow-card">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common tasks for patients</CardDescription>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-4">
-              <Button onClick={openBooking} variant="medical" className="h-20 flex-col space-y-2">
+              <Button variant="medical" className="h-20 flex-col space-y-2">
                 <Calendar className="h-6 w-6" />
                 <span>Book Appointment</span>
               </Button>
@@ -184,23 +131,6 @@ const PatientDashboard = () => {
                 <Search className="h-6 w-6" />
                 <span>Check Medicine</span>
               </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-card animate-slide-up">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Your Health Activity</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-4">
-                {patientMetrics.map((m) => (
-                  <div key={m.label} className="text-center p-3 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold" style={{ color: m.color }}>{m.value}</div>
-                    <div className="text-xs text-muted-foreground">{m.label}</div>
-                  </div>
-                ))}
-              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -340,56 +270,6 @@ const PatientDashboard = () => {
           </Card>
         </TabsContent>
       </Tabs>
-
-      <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Book an Appointment</DialogTitle>
-            <DialogDescription>Select a doctor and how you'd like to consult</DialogDescription>
-          </DialogHeader>
-
-          <div className="grid md:grid-cols-3 gap-3">
-            {availableDoctors.map((doc) => (
-              <button
-                key={doc.id}
-                className={`border rounded-lg p-3 text-left hover:bg-muted ${selectedDoctorId === doc.id ? 'ring-2 ring-primary' : ''}`}
-                onClick={() => bookWithDoctor(doc.id)}
-              >
-                <div className="font-medium">{doc.name}</div>
-                <div className="text-xs text-muted-foreground">{doc.specialization || 'General Medicine'}</div>
-                <div className="text-xs text-muted-foreground">{doc.location}</div>
-              </button>
-            ))}
-          </div>
-
-          <Separator />
-
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Describe your concern (optional)</label>
-            <UITextarea
-              placeholder="Short message about your symptoms..."
-              value={consultMessage}
-              onChange={(e) => setConsultMessage(e.target.value)}
-              rows={3}
-            />
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-2">
-            <Button disabled={!selectedDoctorId} variant="outline" onClick={() => createAppointment('message')}>
-              <MessageSquare className="h-4 w-4 mr-1" /> Message
-            </Button>
-            <Button disabled={!selectedDoctorId || !voiceNoteSupported} variant="outline" onClick={() => createAppointment('voice')}>
-              <Mic className="h-4 w-4 mr-1" /> Voice Note
-            </Button>
-            <Button disabled={!selectedDoctorId} variant="success" onClick={() => createAppointment('audio')}>
-              <Phone className="h-4 w-4 mr-1" /> Audio Call
-            </Button>
-            <Button disabled={!selectedDoctorId} variant="medical" onClick={() => createAppointment('video')}>
-              <Video className="h-4 w-4 mr-1" /> Video Call
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

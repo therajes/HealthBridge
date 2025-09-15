@@ -9,7 +9,7 @@ export const demoUsers: User[] = [
     password: '12345',
     name: 'Krishna',
     role: 'patient',
-    location: 'Village Rampur, Greater Noida',
+    location: 'Village Rampur, Gujarat',
     phone: '+91 9876543210'
   },
   {
@@ -19,7 +19,7 @@ export const demoUsers: User[] = [
     name: 'Dr. Rachit',
     role: 'doctor',
     specialization: 'General Medicine',
-    location: 'Greater Noida Medical Center',
+    location: 'Ahmedabad Medical Center',
     phone: '+91 9876543211'
   },
   {
@@ -28,7 +28,7 @@ export const demoUsers: User[] = [
     password: '12345',
     name: 'Rural Health Pharmacy',
     role: 'pharmacy',
-    location: 'Surajpur District, Greater Noida',
+    location: 'Mehsana District, Gujarat',
     phone: '+91 9876543212'
   },
   {

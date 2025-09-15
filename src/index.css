@@ -8,9 +8,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Refined healthcare palette: sapphire, mint, sand */
-    --background: 210 45% 99%;
-    --foreground: 222 24% 14%;
+    /* Medical theme colors - professional blue-green palette */
+    --background: 210 40% 98%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
     --card-foreground: 215 25% 15%;
@@ -18,46 +18,46 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
-    /* Primary - Sapphire */
-    --primary: 217 90% 46%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 217 90% 64%;
+    /* Primary - Medical blue */
+    --primary: 210 85% 45%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 210 85% 65%;
 
-    /* Secondary - Mist mint */
-    --secondary: 164 32% 88%;
-    --secondary-foreground: 222 24% 20%;
+    /* Secondary - Soft teal for healthcare */
+    --secondary: 175 35% 85%;
+    --secondary-foreground: 215 25% 25%;
 
-    --muted: 210 24% 95%;
-    --muted-foreground: 222 12% 48%;
+    --muted: 210 25% 94%;
+    --muted-foreground: 215 15% 55%;
 
-    /* Accent - Emerald */
-    --accent: 152 61% 45%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - Success green for health indicators */
+    --accent: 145 65% 50%;
+    --accent-foreground: 0 0% 98%;
 
     /* Health status colors */
-    --success: 152 61% 45%;
+    --success: 145 65% 50%;
     --success-foreground: 0 0% 98%;
-    --warning: 35 95% 56%;
-    --warning-foreground: 222 24% 14%;
-    --emergency: 0 76% 56%;
+    --warning: 45 95% 55%;
+    --warning-foreground: 215 25% 15%;
+    --emergency: 0 85% 60%;
     --emergency-foreground: 0 0% 98%;
 
-    --destructive: 0 76% 56%;
+    --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 20% 88%;
-    --input: 210 24% 96%;
-    --ring: 217 90% 46%;
+    --border: 210 25% 88%;
+    --input: 210 25% 94%;
+    --ring: 210 85% 45%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 90% 46%), hsl(199 89% 48%));
-    --gradient-health: linear-gradient(135deg, hsl(152 61% 45%), hsl(164 60% 60%));
-    --gradient-subtle: linear-gradient(180deg, hsl(210 45% 99%), hsl(210 30% 96%));
+    /* Medical gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-health: linear-gradient(135deg, hsl(var(--accent)), hsl(145 65% 65%));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(210 30% 96%));
 
     /* Shadows for depth */
-    --shadow-medical: 0 6px 24px hsl(var(--primary) / 0.14);
-    --shadow-card: 0 3px 14px hsl(222 24% 14% / 0.08);
-    --shadow-glow: 0 0 36px hsl(var(--primary-glow) / 0.35);
+    --shadow-medical: 0 4px 20px hsl(var(--primary) / 0.1);
+    --shadow-card: 0 2px 10px hsl(215 25% 15% / 0.08);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.3);
 
     --radius: 0.75rem;
 
