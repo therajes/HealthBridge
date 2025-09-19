@@ -11,8 +11,16 @@ import { demoUsers, mockAnalytics } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
 
 const AdminDashboard = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { toast } = useToast();
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
+  };
 
   const exportCSV = () => {
     toast({
@@ -33,9 +41,14 @@ const AdminDashboard = () => {
     <div className="px-4 md:px-6 lg:px-8 py-8 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
-        <Badge variant="secondary" className="text-emergency">
-          {user?.name}
-        </Badge>
+        <div className="flex items-center gap-4">
+          <Badge variant="secondary" className="text-emergency">
+            {user?.name}
+          </Badge>
+          <Button variant="destructive" size="sm" onClick={handleLogout}>
+            Logout
+          </Button>
+        </div>
       </div>
 
       <Tabs defaultValue="overview" className="space-y-4">

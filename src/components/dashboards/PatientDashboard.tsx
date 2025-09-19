@@ -42,6 +42,7 @@ import { mockAppointments, mockPrescriptions, mockMedicineStock } from '@/data/m
 import { useToast } from '@/hooks/use-toast';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { ConversationsList } from '@/components/chat/ConversationsList';
+import { MedicalChatbot } from '@/components/chat/MedicalChatbot';
 import { VideoCall } from '@/components/VideoCall';
 import { AppointmentBooking } from '@/components/AppointmentBooking';
 import { SymptomChecker } from '@/components/SymptomChecker';
@@ -446,26 +447,44 @@ const PatientDashboard = () => {
 
         <TabsContent value="messages" className="space-y-4">
           <div className="relative">
-            <div 
-              className="grid md:grid-cols-3 gap-4" 
-              style={{ 
-                height: 'min(calc(100vh - 320px), 600px)',
-                minHeight: '450px'
-              }}
-            >
-              <div className="md:col-span-1 h-full flex flex-col overflow-hidden">
-                <ConversationsList />
+            <div className="grid lg:grid-cols-3 gap-4">
+              {/* AI Health Assistant */}
+              <div className="lg:col-span-1">
+                <MedicalChatbot className="h-full" />
               </div>
-              <div className="md:col-span-2 h-full flex flex-col overflow-hidden">
-                <ChatInterface 
-                  onVideoCall={() => setShowVideoCall(true)}
-                  onVoiceCall={() => {
-                    toast({
-                      title: "Voice Call Started",
-                      description: "Connecting voice call...",
-                    });
-                  }}
-                />
+              
+              {/* Messages Section */}
+              <div className="lg:col-span-2">
+                <Card className="shadow-xl border-0">
+                  <CardHeader className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
+                    <CardTitle>Messages & Consultations</CardTitle>
+                    <CardDescription className="text-blue-100">Connect with healthcare providers</CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div 
+                      className="grid md:grid-cols-3 gap-4 p-4" 
+                      style={{ 
+                        height: 'min(calc(100vh - 400px), 500px)',
+                        minHeight: '400px'
+                      }}
+                    >
+                      <div className="md:col-span-1 h-full flex flex-col overflow-hidden">
+                        <ConversationsList />
+                      </div>
+                      <div className="md:col-span-2 h-full flex flex-col overflow-hidden">
+                        <ChatInterface 
+                          onVideoCall={() => setShowVideoCall(true)}
+                          onVoiceCall={() => {
+                            toast({
+                              title: "Voice Call Started",
+                              description: "Connecting voice call...",
+                            });
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
