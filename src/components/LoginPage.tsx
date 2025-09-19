@@ -3,7 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity, Heart, Users, Building2, Shield, MapPin, Phone } from 'lucide-react';
+import { Activity, Heart, Users, Building2, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const LoginPage = () => {
@@ -29,7 +29,7 @@ const LoginPage = () => {
       if (success) {
         toast({
           title: "Login Successful",
-          description: "Welcome to TeleMed Rural!",
+          description: "Welcome to TeleMed HealthBridge!",
         });
       } else {
         toast({
@@ -62,16 +62,9 @@ const LoginPage = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Activity className="h-8 w-8 text-primary" />
-              <h1 className="text-xl font-bold text-foreground">TeleMed Rural</h1>
-            </div>
-            <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <div className="flex items-center space-x-1">
-                <Phone className="h-4 w-4" />
-                <span>Emergency: 108</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <MapPin className="h-4 w-4" />
-                <span>Gujarat, India</span>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">TeleMed</h1>
+                <p className="text-xs text-muted-foreground">HealthBridge Nabha</p>
               </div>
             </div>
           </div>
@@ -84,12 +77,12 @@ const LoginPage = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl font-bold text-foreground leading-tight">
-                Connecting Rural Communities to 
+                Connecting Nabha to 
                 <span className="text-primary"> Quality Healthcare</span>
               </h2>
               <p className="text-lg text-muted-foreground">
                 Bridge the healthcare gap with our telemedicine platform. Get consultations, 
-                prescriptions, and medicine availability checks from the comfort of your village.
+                prescriptions, and medicine availability checks from anywhere in Nabha and surrounding areas.
               </p>
             </div>
             

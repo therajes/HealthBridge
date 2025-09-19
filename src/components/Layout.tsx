@@ -34,13 +34,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Activity className="h-8 w-8 text-primary" />
-                <h1 className="text-xl font-bold text-foreground">TeleMed Rural</h1>
-              </div>
-              <div className="hidden md:block text-sm text-muted-foreground">
-                Connecting Rural Communities to Healthcare
-              </div>
+            <div className="flex items-center space-x-2">
+              <Activity className="h-8 w-8 text-primary" />
+              <h1 className="text-xl font-bold text-foreground">TeleMed HealthBridge</h1>
+            </div>
+            <div className="hidden md:block text-sm text-muted-foreground">
+              Connecting Nabha to Quality Healthcare
+            </div>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -66,27 +66,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
-
-      {/* Footer */}
-      <footer className="bg-card border-t border-border mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-muted-foreground">
-              © 2024 TeleMed Rural - Bridging Healthcare Gaps
-            </div>
-            <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <div className="flex items-center space-x-1">
-                <Phone className="h-4 w-4" />
-                <span>Emergency: 108</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <MapPin className="h-4 w-4" />
-                <span>Gujarat, India</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

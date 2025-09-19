@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   }));
 
   return (
-    <div className="space-y-6">
+    <div className="px-4 md:px-6 lg:px-8 py-8 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
         <Badge variant="secondary" className="text-emergency">

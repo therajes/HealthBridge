@@ -28,11 +28,8 @@ const Index = () => {
     }
   };
 
-  return (
-    <Layout>
-      {renderDashboard()}
-    </Layout>
-  );
+  // Dashboards include their own Layout wrapper, so we don't need to wrap them again
+  return renderDashboard();
 };
 
 export default Index;
