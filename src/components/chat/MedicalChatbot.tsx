@@ -53,7 +53,7 @@ export const MedicalChatbot: React.FC<MedicalChatbotProps> = ({
     {
       id: '1',
       role: 'bot',
-      content: "Hello! I'm **Dr. HealthBridge AI**, your virtual health assistant. 👋\n\nI can help you with:\n• Understanding symptoms\n• Basic health guidance\n• Home remedies\n• When to see a doctor\n\nHow can I assist you today?",
+      content: "Hello! I'm **Dr. MediCall AI**, your virtual health assistant. 👋\n\nI can help you with:\n• Understanding symptoms\n• Basic health guidance\n• Home remedies\n• When to see a doctor\n\nHow can I assist you today?",
       timestamp: new Date(),
       urgency: 'low'
     }
@@ -187,7 +187,7 @@ export const MedicalChatbot: React.FC<MedicalChatbotProps> = ({
             </div>
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
-                Dr. HealthBridge AI
+                Dr. MediCall AI
                 <Badge className="bg-white/20 text-white border-white/30">Online</Badge>
               </CardTitle>
               <CardDescription className="text-blue-100 text-xs">

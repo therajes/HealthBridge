@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Activity className="h-8 w-8 text-primary" />
-              <h1 className="text-xl font-bold text-foreground">TeleMed HealthBridge</h1>
+              <h1 className="text-xl font-bold text-foreground">TeleMed MediCall</h1>
             </div>
             <div className="hidden md:block text-sm text-muted-foreground">
               Connecting Nabha to Quality Healthcare

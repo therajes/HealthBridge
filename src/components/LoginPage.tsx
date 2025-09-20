@@ -3,7 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity, Heart, Users, Building2, Shield } from 'lucide-react';
+import { Activity, Stethoscope, Users, Building2, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const LoginPage = () => {
@@ -14,7 +14,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
 
   const demoCredentials = [
-    { role: 'Patient', email: 'patient@demo.com', icon: Heart, color: 'text-success' },
+    { role: 'Patient', email: 'patient@demo.com', icon: Stethoscope, color: 'text-success' },
     { role: 'Doctor', email: 'doctor@demo.com', icon: Users, color: 'text-primary' },
     { role: 'Pharmacy', email: 'pharmacy@demo.com', icon: Building2, color: 'text-warning' },
     { role: 'Admin', email: 'admin@demo.com', icon: Shield, color: 'text-emergency' },
@@ -29,7 +29,7 @@ const LoginPage = () => {
       if (success) {
         toast({
           title: "Login Successful",
-          description: "Welcome to TeleMed HealthBridge!",
+          description: "Welcome to TeleMed MediCall!",
         });
       } else {
         toast({
@@ -64,7 +64,7 @@ const LoginPage = () => {
               <Activity className="h-8 w-8 text-primary" />
               <div>
                 <h1 className="text-xl font-bold text-foreground">TeleMed</h1>
-                <p className="text-xs text-muted-foreground">HealthBridge Nabha</p>
+                <p className="text-xs text-muted-foreground">MediCall Nabha</p>
               </div>
             </div>
           </div>

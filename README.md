@@ -1,8 +1,8 @@
-# HealthBridge: Telemedicine Platform for Rural Healthcare Access
+# MediCall: Telemedicine Platform for Rural Healthcare Access
 
 ## Abstract
 
-HealthBridge is a comprehensive telemedicine platform designed to address critical healthcare accessibility challenges in rural regions, with initial deployment targeting Nabha and its surrounding 173 villages in Punjab, India. The platform leverages modern web technologies to provide remote medical consultations, digital health records, pharmacy inventory management, and AI-powered symptom assessment, optimized for low-bandwidth rural environments.
+MediCall is a comprehensive telemedicine platform designed to address critical healthcare accessibility challenges in rural regions, with initial deployment targeting Nabha and its surrounding 173 villages in Punjab, India. The platform leverages modern web technologies to provide remote medical consultations, digital health records, pharmacy inventory management, and AI-powered symptom assessment, optimized for low-bandwidth rural environments.
 
 ## Problem Statement
 
@@ -26,7 +26,7 @@ These healthcare barriers disproportionately affect vulnerable populations:
 
 ## Solution Overview
 
-HealthBridge addresses these challenges through a comprehensive digital health ecosystem that provides:
+MediCall addresses these challenges through a comprehensive digital health ecosystem that provides:
 
 ### Core Functionality
 
@@ -204,7 +204,7 @@ We extend our gratitude to:
 
 ---
 
-*HealthBridge: Bridging the gap between rural communities and quality healthcare through innovative technology solutions.*
+*MediCall: Bridging the gap between rural communities and quality healthcare through innovative technology solutions.*
 
 *Last Updated: [Current Date]*
 *Version: 1.0.0*

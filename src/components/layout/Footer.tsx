@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Heart, 
+  Stethoscope, 
   Phone, 
   Mail, 
   MapPin, 
@@ -145,11 +145,11 @@ export const Footer: React.FC = () => {
                   }}
                   className="p-3 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl"
                 >
-                  <Heart className="h-8 w-8 text-white" fill="currentColor" />
+                  <Stethoscope className="h-8 w-8 text-white" />
                 </motion.div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-800">TeleMed</h3>
-                  <p className="text-sm text-gray-600">HealthBridge Nabha</p>
+                  <p className="text-sm text-gray-600">MediCall Nabha</p>
                 </div>
               </div>
               <p className="text-gray-700">
@@ -302,7 +302,7 @@ export const Footer: React.FC = () => {
         <div className="border-t border-gray-200">
           <div className="px-4 md:px-6 lg:px-8 py-6">
             <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600">
-              <p>© {currentYear} TeleMed HealthBridge. All rights reserved.</p>
+              <p>© {currentYear} TeleMed MediCall. All rights reserved.</p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</a>
                 <a href="#" className="hover:text-blue-600 transition-colors">Terms of Service</a>

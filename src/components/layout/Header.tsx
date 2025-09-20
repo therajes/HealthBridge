@@ -83,7 +83,7 @@ export const Header: React.FC = () => {
               <div className={`relative p-3 rounded-full ${
                 isScrolled ? 'bg-gradient-to-br from-blue-500 to-cyan-500' : 'bg-white/10 backdrop-blur'
               }`}>
-                <Heart className={`h-8 w-8 ${isScrolled ? 'text-white' : 'text-white'}`} fill="currentColor" />
+                <Stethoscope className={`h-8 w-8 ${isScrolled ? 'text-white' : 'text-white'}`} />
               </div>
             </div>
             <div>
@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
                 TeleMed
               </h1>
               <p className={`text-xs ${isScrolled ? 'text-gray-600' : 'text-white/80'}`}>
-                HealthBridge Nabha
+                MediCall Nabha
               </p>
             </div>
           </motion.div>
